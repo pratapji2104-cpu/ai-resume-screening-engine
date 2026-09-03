@@ -9,26 +9,23 @@ llm = ChatGoogleGenerativeAI(
     model="gemini-3.6-flash",
     api_key=os.getenv("GOOGLE_API_KEY")
 )
-
 feedback_prompt = ChatPromptTemplate.from_template("""
 You are a Resume Feedback Agent.
 
-Review the resume analysis below and provide concise, actionable
-recommendations to improve the candidate's resume.
+Give very simple and concise feedback on this resume analysis.
 
-Focus on:
-1. Missing information
-2. Skills that could be improved
-3. Project improvements
-4. Experience improvements
-5. Overall recommendations
+Provide only:
+1. 2 strengths
+2. 2 weaknesses
+3. 3 improvement suggestions
 
-Do not invent candidate information.
+Use short bullet points.
+Do not explain in detail.
+Do not invent information.
 
 Resume Analysis:
 {analysis}
 """)
-
 
 def generate_feedback(analysis: str) -> str:
     prompt = feedback_prompt.format(analysis=analysis)
