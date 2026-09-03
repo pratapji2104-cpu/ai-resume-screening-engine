@@ -1,35 +1,49 @@
-# AI-Powered Multi-Agent Resume Screening & Hiring Decision Engine
+# AI Resume Screening Engine
 
-An AI-powered multi-agent decision-support system for analyzing resumes against job descriptions and providing explainable candidate screening recommendations.
+## Milestone 1: Agent Foundation Development
 
-## Current Milestone
+This project is a foundational AI resume screening system developed using
+LangChain and Google Gemini.
+The purpose of Milestone 1 is to establish the core agent framework,
+prompt templates, agent interaction workflow, testing interface, and
+development environment.
 
-Milestone 1 — Agent Foundation Development
+## Milestone 1 Objectives
 
-### Current Goals
+The following requirements have been implemented:
 
-- Configure the AI development environment
+- Configure LangChain and required dependencies
 - Develop foundational AI agents
 - Implement prompt templates
-- Create agent interaction workflows
+- Implement agent interaction workflows
 - Create a basic testing interface
+- Configure environment variables securely
+- Maintain the project using Git and GitHub
 
-## Planned Agents
-
-1. Planner Agent
-2. Resume Analysis Agent
-3. Job Requirement Agent
-4. Candidate Analysis Agent
-5. Decision Agent
-
-## Technology
-
+## Technology Stack
 - Python
 - LangChain
-- Large Language Model
-- Streamlit
-- Git/GitHub
-
-## Project Status
-
-🚧 Week 1–2 development in progress.
+- LangChain Google GenAI
+- Google Gemini API
+- python-dotenv
+- Git
+- GitHub
+- 
+## Project Structure
+```text
+ai-resume-screening-engine/
+│
+├── src/
+│   ├── agents/
+│   │   ├── resume_analyzer.py
+│   │   └── resume_feedback.py
+│   │
+│   └── workflow.py
+│
+├── test_resume.py
+├── test_workflow.py
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── README.md
+└── LICENSE
