@@ -1,17 +1,15 @@
-import os
-from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.prompts import ChatPromptTemplate
+"""Resume analysis agent.
 
-load_dotenv()
+Builds a structured-analysis prompt for a resume and sends it to an LLM.
+The LLM is injectable so the module is unit-testable without a network
+connection or API key.
+"""
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini-3.6-flash",
-    api_key=os.getenv("GOOGLE_API_KEY")
-)
+from __future__ import annotations
 
-prompt_template = ChatPromptTemplate.from_template("""
-You are a Resume Analysis Agent.
+from src.llm import get_llm
+
+RESUME_ANALYSIS_PROMPT = """You are a Resume Analysis Agent.
 
 Analyze the candidate's resume and provide a structured analysis.
 
@@ -30,13 +28,28 @@ Keep the analysis concise and factual.
 Do not invent information that is not present in the resume.
 
 Resume:
-{resume_text}
-""")
+{resume_text}"""
+
+__all__ = ["RESUME_ANALYSIS_PROMPT", "build_analysis_prompt", "analyze_resume"]
 
 
-def analyze_resume(resume_text: str) -> str:
-    prompt = prompt_template.format(resume_text=resume_text)
+def build_analysis_prompt(resume_text: str) -> str:
+    """Build the analysis prompt for a given resume."""
+    return RESUME_ANALYSIS_PROMPT.format(resume_text=resume_text)
 
-    response = llm.invoke(prompt)
 
-    return response.content
+def analyze_resume(resume_text: str, llm=None) -> str:
+    """Analyze a resume and return the LLM's structured analysis.
+
+    Args:
+        resume_text: The candidate's resume as plain text.
+        llm: Any object with ``invoke(text)`` returning a result with a
+            ``.content`` attribute. Defaults to the Gemini backend.
+
+    Returns:
+        str: The model's analysis text.
+    """
+    if llm is None:
+        llm = get_llm()
+    prompt = build_analysis_prompt(resume_text)
+    return llm.invoke(prompt).content
