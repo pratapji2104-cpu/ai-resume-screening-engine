@@ -17,11 +17,13 @@ Experience:
 Currently looking for internship opportunities.
 """
 
-
-result = run_resume_workflow(resume)
+result = run_resume_workflow(resume, "web developer")
 
 print("\n===== RESUME ANALYSIS =====")
 print(result["analysis"])
 
 print("\n===== RESUME FEEDBACK =====")
 print(result["feedback"])
+
+print("\n===== JOB REQUIREMENTS =====")
+print(result["job_info"])
