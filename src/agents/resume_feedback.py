@@ -1,16 +1,14 @@
-import os
-from dotenv import load_dotenv
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.prompts import ChatPromptTemplate
+"""Resume feedback agent.
 
-load_dotenv()
+Turns an existing resume analysis into short, actionable feedback.  LLM is
+injectable for offline testing (same interface as the analyzer).
+"""
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini-3.6-flash",
-    api_key=os.getenv("GOOGLE_API_KEY")
-)
-feedback_prompt = ChatPromptTemplate.from_template("""
-You are a Resume Feedback Agent.
+from __future__ import annotations
+
+from src.llm import get_llm
+
+FEEDBACK_PROMPT = """You are a Resume Feedback Agent.
 
 Give very simple and concise feedback on this resume analysis.
 
@@ -24,10 +22,19 @@ Do not explain in detail.
 Do not invent information.
 
 Resume Analysis:
-{analysis}
-""")
+{analysis}"""
 
-def generate_feedback(analysis: str) -> str:
-    prompt = feedback_prompt.format(analysis=analysis)
-    response = llm.invoke(prompt)
-    return response.content
+__all__ = ["FEEDBACK_PROMPT", "build_feedback_prompt", "generate_feedback"]
+
+
+def build_feedback_prompt(analysis: str) -> str:
+    """Build the feedback prompt for a given resume analysis."""
+    return FEEDBACK_PROMPT.format(analysis=analysis)
+
+
+def generate_feedback(analysis: str, llm=None) -> str:
+    """Generate concise strengths / weaknesses / suggestions feedback."""
+    if llm is None:
+        llm = get_llm()
+    prompt = build_feedback_prompt(analysis)
+    return llm.invoke(prompt).content
