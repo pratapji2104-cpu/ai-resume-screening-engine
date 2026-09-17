@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Screening Engine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+    <h1>AI Resume Screening Engine</h1>
+    <p>AI-powered resume analysis, job requirements and personalized feedback</p>
+      </div>
+
+        <div class="card">
+
+            <label for="jobRole">Job Role</label>
+            <input
+                type="text"
+                id="jobRole"
+                placeholder="Example: web developer"
+            >
+
+            <label for="resume">Resume</label>
+            <textarea
+                id="resume"
+                placeholder="Paste your resume here..."
+            ></textarea>
+
+            <button onclick="analyzeResume()">
+                Analyze Resume
+                
+            </button>
+
+            <p id="loading"></p>
+            <p id="error"></p>
+
+        </div>
+
+        <div id="results" class="results">
+
+            <div class="result-card">
+                <h2>Resume Analysis</h2>
+                <pre id="analysis"></pre>
+            </div>
+
+            <div class="result-card">
+                <h2>Job Requirements</h2>
+                <pre id="jobRequirements"></pre>
+            </div>
+
+            <div class="result-card">
+                <h2>AI Feedback</h2>
+                <pre id="feedback"></pre>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

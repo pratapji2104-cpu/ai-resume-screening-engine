@@ -10,33 +10,71 @@ llm = ChatGoogleGenerativeAI(
     api_key=os.getenv("GOOGLE_API_KEY")
 )
 
-prompt_template = ChatPromptTemplate.from_template("""
-You are a Resume Analysis Agent.
+resume_prompt = ChatPromptTemplate.from_template("""
+You are a Resume Analyzer Agent.
 
-Analyze the candidate's resume and provide a structured analysis.
+Analyze the following resume.
 
-Extract the following information:
+Return a simple and concise analysis using ONLY these sections:
 
-1. Candidate Name
-2. Technical Skills
-3. Education
-4. Work Experience
-5. Projects
-6. Certifications
-7. Overall Strengths
-8. Areas that need improvement
+Candidate:
+- Name
 
-Keep the analysis concise and factual.
-Do not invent information that is not present in the resume.
+Education:
+- Short summary
+
+Skills:
+- Important skills
+
+Experience:
+- Short summary
+
+Projects:
+- Short summary
+
+Missing or Weak Areas:
+- Short points
+
+Rules:
+- Keep the answer concise.
+- Use bullet points.
+- Do not add unnecessary explanations.
+- Do not invent information.
 
 Resume:
-{resume_text}
+{resume}
 """)
 
 
+def extract_text(response):
+    content = response.content
+
+    # If response is already a string
+    if isinstance(content, str):
+        return content
+
+    # If Gemini returns a list of content blocks
+    if isinstance(content, list):
+        texts = []
+
+        for item in content:
+            if isinstance(item, dict) and "text" in item:
+                texts.append(item["text"])
+
+            elif hasattr(item, "text"):
+                texts.append(item.text)
+
+        if texts:
+            return "\n".join(texts)
+
+    return str(content)
+
+
 def analyze_resume(resume_text: str) -> str:
-    prompt = prompt_template.format(resume_text=resume_text)
+    prompt = resume_prompt.format(
+        resume=resume_text
+    )
 
     response = llm.invoke(prompt)
 
-    return response.content
+    return extract_text(response)
