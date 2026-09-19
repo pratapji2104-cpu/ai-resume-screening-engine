@@ -1,49 +1,63 @@
 # AI Resume Screening Engine
 
-## Milestone 1: Agent Foundation Development
+An AI-powered resume screening system that analyzes resumes, compares them with job requirements, and provides structured feedback.
 
-This project is a foundational AI resume screening system developed using
-LangChain and Google Gemini.
-The purpose of Milestone 1 is to establish the core agent framework,
-prompt templates, agent interaction workflow, testing interface, and
-development environment.
+## Project Objective
 
-## Milestone 1 Objectives
+The project demonstrates the development of AI agents, prompt-based workflows, enterprise tool integration, validation, and intelligent skill matching.
 
-The following requirements have been implemented:
+The implementation currently covers:
 
-- Configure LangChain and required dependencies
-- Develop foundational AI agents
-- Implement prompt templates
-- Implement agent interaction workflows
-- Create a basic testing interface
-- Configure environment variables securely
-- Maintain the project using Git and GitHub
+- Milestone 1: Agent Environment Setup & Foundation Development
+- Milestone 2: Tool Integration & Intelligent Action Execution
 
-## Technology Stack
+---
+
+# Technology Stack
+
 - Python
 - LangChain
-- LangChain Google GenAI
-- Google Gemini API
-- python-dotenv
-- Git
-- GitHub
-- 
-## Project Structure
+- Google Gemini
+- Flask
+- Flask-CORS
+- PyPDF
+- HTML
+- CSS
+- JavaScript
+- Git & GitHub
+
+---
+
+# Milestone 1: Agent Foundation
+
+## Resume Analyzer Agent
+
+The Resume Analyzer Agent analyzes resume content and identifies:
+
+- Candidate information
+- Education
+- Skills
+- Experience
+- Projects
+- Missing or weak areas
+
+## Resume Feedback Agent
+
+The Resume Feedback Agent uses the resume analysis to generate:
+
+- Strengths
+- Weaknesses
+- Suggestions for improvement
+
+## Agent Workflow
+
+The basic workflow is:
+
 ```text
-ai-resume-screening-engine/
-│
-├── src/
-│   ├── agents/
-│   │   ├── resume_analyzer.py
-│   │   └── resume_feedback.py
-│   │
-│   └── workflow.py
-│
-├── test_resume.py
-├── test_workflow.py
-├── requirements.txt
-├── .env.example
-├── .gitignore
-├── README.md
-└── LICENSE
+Resume
+   ↓
+Resume Analyzer Agent
+   ↓
+Resume Feedback Agent
+   ↓
+Structured Resume Feedback
