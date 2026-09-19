@@ -18,23 +18,13 @@
 
         <div class="card">
 
-            <label for="jobRole">Job Role</label>
-            <input
-                type="text"
-                id="jobRole"
-                placeholder="Example: web developer"
-            >
+           <label for="jobRole">Job Role</label>
+<input type="text" id="jobRole" placeholder="Example: web developer">
 
-            <label for="resume">Resume</label>
-            <textarea
-                id="resume"
-                placeholder="Paste your resume here..."
-            ></textarea>
+<label for="resumeFile">Upload Resume PDF</label>
+<input type="file" id="resumeFile" accept=".pdf">
 
-            <button onclick="analyzeResume()">
-                Analyze Resume
-                
-            </button>
+<button onclick="analyzeResume()">Analyze Resume</button>
 
             <p id="loading"></p>
             <p id="error"></p>

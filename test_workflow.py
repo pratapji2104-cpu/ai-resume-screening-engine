@@ -4,26 +4,33 @@ from src.workflow import run_resume_workflow
 resume = """
 Pragya Pratap
 
-Education:
-B.Tech Computer Science Engineering
+Computer Science Engineering student.
 
 Skills:
-C++, Python, JavaScript, HTML, CSS, DSA
+C++, Python, JavaScript, HTML, CSS, DSA, Git.
 
 Projects:
-To-Do Web Application using HTML, CSS and JavaScript.
+To-Do Web Application developed using HTML, CSS, and JavaScript.
 
 Experience:
-Currently looking for internship opportunities.
+No prior professional work experience; currently seeking internship opportunities.
 """
 
+
 result = run_resume_workflow(resume, "web developer")
+
 
 print("\n===== RESUME ANALYSIS =====")
 print(result["analysis"])
 
+
 print("\n===== RESUME FEEDBACK =====")
 print(result["feedback"])
 
+
 print("\n===== JOB REQUIREMENTS =====")
 print(result["job_info"])
+
+
+print("\n===== SKILL MATCHING =====")
+print(result["skill_matching"])

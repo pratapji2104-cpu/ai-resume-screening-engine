@@ -1,9 +1,12 @@
 from src.enterprise_tools import get_job_requirements
+from src.tools.job_description_parser import extract_job_requirements
 
 
 def select_tool(user_request):
-
     request = user_request.lower()
+
+    if "job description" in request:
+        return "extract_job_requirements"
 
     if "job" in request or "requirements" in request or "skills" in request:
         return "get_job_requirements"
@@ -11,14 +14,22 @@ def select_tool(user_request):
     return "no_tool"
 
 
-def execute_request(user_request, job_role):
+def execute_request(user_request, job_role="", job_description=""):
 
     selected_tool = select_tool(user_request)
 
     if selected_tool == "get_job_requirements":
-
         try:
             return get_job_requirements(job_role)
+
+        except ValueError as e:
+            return {
+                "error": str(e)
+            }
+
+    elif selected_tool == "extract_job_requirements":
+        try:
+            return extract_job_requirements(job_description)
 
         except ValueError as e:
             return {
