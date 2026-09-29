@@ -3,6 +3,7 @@ from src.agents.resume_feedback import generate_feedback
 from src.agents.job_agent import get_job_info
 from src.agents.skill_matching import match_skills
 from src.tools.job_description_parser import extract_job_requirements
+from src.coordination.agent_coordinator import AgentCoordinator
 
 
 def run_resume_workflow(
@@ -13,6 +14,7 @@ def run_resume_workflow(
 
     if not job_role or not job_role.strip():
         raise ValueError("Job role cannot be empty")
+    coordinator = AgentCoordinator()
 
     # Step 1: Analyze the resume
     analysis = analyze_resume(resume_text)
@@ -52,13 +54,24 @@ def run_resume_workflow(
         required_skills
     )
 
-    # Step 6: Generate resume feedback
+        # Step 6: Generate resume feedback
     feedback = generate_feedback(analysis)
+
+    # Step 7: Coordinate specialized agents
+    coordination = coordinator.coordinate(
+        resume_text,
+        job_role,
+        analysis,
+        job_info,
+        job_description_requirements,
+        skill_matching
+    )
 
     return {
         "analysis": analysis,
         "job_info": job_info,
         "job_description_requirements": job_description_requirements,
         "skill_matching": skill_matching,
-        "feedback": feedback
+        "feedback": feedback,
+        "coordination": coordination
     }
