@@ -11,6 +11,9 @@ def run_resume_workflow(
     job_description: str = ""
 ) -> dict:
 
+    if not job_role or not job_role.strip():
+        raise ValueError("Job role cannot be empty")
+
     # Step 1: Analyze the resume
     analysis = analyze_resume(resume_text)
 
